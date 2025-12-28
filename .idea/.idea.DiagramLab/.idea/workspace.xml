@@ -8,7 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="56104421-5ab4-4de2-b790-0798f8b4e818" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiagramLab/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiagramLab/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +89,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1766872380969</updated>
-      <workItem from="1766872382304" duration="2970000" />
+      <workItem from="1766872382304" duration="3288000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -99,7 +99,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766873519034</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Убрал конфигурацию среды разработки">
+      <option name="closed" value="true" />
+      <created>1766920032834</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1766920032834</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Убрал конфигурацию среды разработки">
+      <option name="closed" value="true" />
+      <created>1766920068593</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1766920068593</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,7 +126,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="Убрал конфигурацию среды разработки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Убрал конфигурацию среды разработки" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

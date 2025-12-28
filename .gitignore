@@ -1,0 +1,118 @@
+﻿# Rider IDE
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.cache
+*.ilk
+*.pdb
+*.obj
+*.lib
+*.log
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.opensdf
+*.sdf
+_ReSharper.*
+*.VisualState.xml
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# NuGet
+[Nn]u[Gg]et/
+packages/
+*.nupkg
+*.nuspec
+
+# User-specific files
+*.rsuser
+*.userprefs
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Avalonia specific
+*.axaml  # устаревший формат, если не используете
+*.cache
+/bin/
+/obj/
+
+# Test results
+*.TestResult.xml
+TestResult/
+*.trx
+
+# Local History for Visual Studio
+.history/
+
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+
+# Azure Functions localsettings.json
+local.settings.json
+
+# CodeRush
+.cr/
+
+# Python Tools for Visual Studio (PTVS)
+__pycache__/
+*.pyc
+
+# Cake - Uncomment if you are using it
+# tools/
+
+# JetBrains Rider
+*.sln.iml
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# JetBrains IDEs shared files
+*.iws

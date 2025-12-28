@@ -1,118 +1,204 @@
-﻿# Rider IDE
-.idea/
-*.sln.iml
+﻿### Дополнения к вашему файлу:
 
-# Visual Studio
-.vs/
-.vscode/
-*.user
-*.userosscache
-*.sln.docstates
-*.suo
-*.cache
-*.ilk
-*.pdb
-*.obj
-*.lib
-*.log
-[Tt]est[Rr]esult*
-[Bb]uild[Ll]og.*
-*.opensdf
-*.sdf
-_ReSharper.*
-*.VisualState.xml
+# Дополнительно для .NET
+*.pidb
+*.pch
+ipch/
+*.extension.csproj
+*.tss
+*.vspscc
+*.vssscc
+*[Cc]ache/
+*[Cc]ache32/
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
 
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Oo]ut/
-msbuild.log
-msbuild.err
-msbuild.wrn
-
-# NuGet
-[Nn]u[Gg]et/
-packages/
-*.nupkg
-*.nuspec
-
-# User-specific files
-*.rsuser
-*.userprefs
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
-
-# Avalonia specific
-*.axaml  # устаревший формат, если не используете
-*.cache
-/bin/
-/obj/
-
-# Test results
-*.TestResult.xml
-TestResult/
-*.trx
-
-# Local History for Visual Studio
-.history/
-
-# Backup folder for Package Reference Convert tool in Visual Studio 2017
-MigrationBackup/
-
-# Azure Functions localsettings.json
-local.settings.json
-
-# CodeRush
-.cr/
-
-# Python Tools for Visual Studio (PTVS)
-__pycache__/
-*.pyc
-
-# Cake - Uncomment if you are using it
-# tools/
-
-# JetBrains Rider
-*.sln.iml
-
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
-
-# Local History for Visual Studio Code
-.history/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-# JetBrains IDEs shared files
+# Дополнительно для Rider/IntelliJ
+.idea_modules/
+atlassian-ide-plugin.xml
+*.ipr
 *.iws
+shelf/
+plugins/
+
+# Дополнительно для операционных систем
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+$RECYCLE.BIN/
+*.stackdump
+
+# MacOS
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Java
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+*.log
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+.gradle/
+local.properties
+*.keystore
+
+# iOS
+*.ipa
+*.mobileprovision
+*.xcuserstate
+xcuserdata/
+DerivedData/
+build/
+
+# Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+*.unityproj
+*.booproj
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+sysinfo.txt
+*.apk
+*.unitypackage
+
+# Docker
+.env
+.dockerignore
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out/
+
+# Nuxt.js build / generate output
+.nuxt
+dist/
+
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and not Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
+
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static/
+
+# Temporary folders
+tmp/
+temp/

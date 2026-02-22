@@ -1,17 +1,41 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:DiagramLab.Desktop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:DiagramLab.Desktop.ViewModel"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DiagramLab.Desktop.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        x:DataType="viewModel:MainWindowViewModel"
         Title="DiagramLab.Desktop">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel />
+        <viewModel:MainWindowViewModel />
     </Design.DataContext>
-    <TextBlock Text="{Binding Greeting}"
-               HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+    <ItemsControl ItemsSource="{Binding Items}">
+
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Canvas />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+		
+        <ItemsControl.ItemContainerTheme>
+            <ControlTheme x:DataType="viewModel:Item" TargetType="ContentPresenter">
+                <Setter Property="Canvas.Left" Value="{Binding X}" />
+                <Setter Property="Canvas.Top" Value="{Binding Y}" />
+            </ControlTheme>
+        </ItemsControl.ItemContainerTheme>
+
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="viewModel:Item">
+                <Rectangle Width="{Binding Size}" 
+                           Height="{Binding Size}">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{Binding Color}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </Window>

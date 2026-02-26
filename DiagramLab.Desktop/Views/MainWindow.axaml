@@ -3,6 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:DiagramLab.Desktop.ViewModel"
+        xmlns:symbolsUi="clr-namespace:DiagramLab.Desktop.SymbolsUI"
+        xmlns:symbolsView="clr-namespace:DiagramLab.Desktop.SymbolsView"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DiagramLab.Desktop.Views.MainWindow"
         x:DataType="viewModel:MainWindowViewModel"
@@ -11,31 +13,32 @@
     <Design.DataContext>
         <viewModel:MainWindowViewModel />
     </Design.DataContext>
-
-    <ItemsControl ItemsSource="{Binding Items}">
-
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <Canvas />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-		
-        <ItemsControl.ItemContainerTheme>
-            <ControlTheme x:DataType="viewModel:Item" TargetType="ContentPresenter">
-                <Setter Property="Canvas.Left" Value="{Binding X}" />
-                <Setter Property="Canvas.Top" Value="{Binding Y}" />
-            </ControlTheme>
-        </ItemsControl.ItemContainerTheme>
-
-        <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="viewModel:Item">
-                <Rectangle Width="{Binding Size}" 
-                           Height="{Binding Size}">
-                    <Rectangle.Fill>
-                        <SolidColorBrush Color="{Binding Color}" />
-                    </Rectangle.Fill>
-                </Rectangle>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    
+    <Grid ColumnDefinitions="370,*">
+        <StackPanel Name="MenuSymbols" Grid.Column="0" Width="370" Background="#FFF5F5F5">
+            <symbolsUi:ActionSymbolUi Padding="5 10  5 5 "/>
+        </StackPanel>
+        
+        <ItemsControl Grid.Column="1" ItemsSource="{Binding SymbolsVm}">
+            
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Name="DrawingCanvas" Background="White" PointerMoved="InputElement_OnPointerMoved" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemContainerTheme>
+                <ControlTheme x:DataType="viewModel:SymbolVm" TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </ControlTheme>
+            </ItemsControl.ItemContainerTheme>
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="viewModel:SymbolVm">
+                    <symbolsView:ActionSymbolView Loaded="Control_OnLoaded" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </Window>

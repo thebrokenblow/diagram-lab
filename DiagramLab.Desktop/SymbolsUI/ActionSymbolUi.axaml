@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignWidth="350" 
+             d:DesignHeight="60"
+             x:Class="DiagramLab.Desktop.SymbolsUI.ActionSymbolUi">
+    
+    <Grid Width="350" Height="60">
+        <Canvas
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Width="140"
+            Height="60"
+            Background="#FF52C0AA">
+            <TextBlock
+                Width="140"
+                Height="60"
+                Foreground="White"
+                TextAlignment="Center"
+                Text="Действие" />
+        </Canvas>
+        
+        <Grid HorizontalAlignment="Right" 
+              Width="210" Height="60">
+            <Label Content="Действие (1)"
+                   Foreground="Black"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</UserControl>

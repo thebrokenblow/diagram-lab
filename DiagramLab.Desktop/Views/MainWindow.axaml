@@ -2,16 +2,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModel="clr-namespace:DiagramLab.Desktop.ViewModel"
-        xmlns:symbolsUi="clr-namespace:DiagramLab.Desktop.SymbolsUI"
-        xmlns:symbolsView="clr-namespace:DiagramLab.Desktop.SymbolsView"
+        xmlns:symbolsUi="clr-namespace:SymbolsUi;assembly=SymbolsUi"
+        xmlns:symbolsView="clr-namespace:SymbolsView;assembly=SymbolsView"
+        xmlns:menusViewModel="clr-namespace:SymbolsViewModel.Menus;assembly=SymbolsViewModel"
+        xmlns:symbolsViewModel="clr-namespace:SymbolsViewModel;assembly=SymbolsViewModel"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DiagramLab.Desktop.Views.MainWindow"
-        x:DataType="viewModel:MainWindowViewModel"
+        x:DataType="menusViewModel:MainWindowViewModel"
         Title="DiagramLab.Desktop">
 
     <Design.DataContext>
-        <viewModel:MainWindowViewModel />
+        <menusViewModel:MainWindowViewModel />
     </Design.DataContext>
     
     <Grid ColumnDefinitions="370,*">
@@ -30,16 +31,16 @@
             </ItemsControl.ItemsPanel>
             
             <ItemsControl.ItemContainerTheme>
-                <ControlTheme x:DataType="viewModel:SymbolVm" TargetType="ContentPresenter">
+                <ControlTheme x:DataType="symbolsViewModel:BaseSymbolViewModel" TargetType="ContentPresenter">
                     <Setter Property="Canvas.Left" Value="{Binding X}" />
                     <Setter Property="Canvas.Top" Value="{Binding Y}" />
                 </ControlTheme>
             </ItemsControl.ItemContainerTheme>
             
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="viewModel:SymbolVm">
-                    <symbolsView:ActionSymbolView PointerPressed="InputElement_OnPointerPressed"
-                                                  PointerReleased="InputElement_OnPointerReleased" />
+                <DataTemplate DataType="symbolsViewModel:ActionSymbolViewModel">
+                    <symbolsView:ActionSymbolView PointerPressed="SymbolView_OnPointerPressed"
+                                                  PointerReleased="SymbolView_OnPointerReleased" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

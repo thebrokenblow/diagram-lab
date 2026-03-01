@@ -1,8 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using DiagramLab.Desktop.SymbolsView;
-using DiagramLab.Desktop.ViewModel;
+using SymbolsView;
+using SymbolsViewModel;
+using SymbolsViewModel.Menus;
 
 namespace DiagramLab.Desktop.Views;
 
@@ -25,37 +26,37 @@ public partial class MainWindow : Window
         e.Handled = true;
     }
 
-    public void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    public void SymbolView_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (sender is not SymbolView symbolView)
+        if (sender is not BaseSymbolView baseSymbolView)
         {
             return;
         }
         
-        if (symbolView.DataContext is not SymbolVm symbolVm)
+        if (baseSymbolView.DataContext is not BaseSymbolViewModel baseSymbolViewModel)
         {
             return; 
         }
         
         var pointerPosition = e.GetPosition(_drawingCanvas);
-        _mainWindowViewModel.SetMovingSymbol(symbolVm, pointerPosition.X, pointerPosition.Y);
+        _mainWindowViewModel.SetMovingSymbol(baseSymbolViewModel, pointerPosition.X, pointerPosition.Y);
         
         e.Handled = true;
     }
 
-    public void InputElement_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    public void SymbolView_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        if (sender is not SymbolView symbolView)
+        if (sender is not BaseSymbolView baseSymbolView)
         {
             return;
         }
         
-        if (symbolView.DataContext is not SymbolVm symbolVm)
+        if (baseSymbolView.DataContext is not BaseSymbolViewModel baseSymbolViewModel)
         {
             return; 
         }
         
-        _mainWindowViewModel.UnsetMovingSymbol(symbolVm);
+        _mainWindowViewModel.UnsetMovingSymbol(baseSymbolViewModel);
         
         e.Handled = true;
     }

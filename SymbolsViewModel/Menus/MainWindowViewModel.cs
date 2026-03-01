@@ -1,29 +1,29 @@
 using System.Collections.ObjectModel;
 
-namespace DiagramLab.Desktop.ViewModel;
+namespace SymbolsViewModel.Menus;
 
 public class MainWindowViewModel
 {
-    public ObservableCollection<SymbolVm> SymbolsVm { get; } = [];
+    private BaseSymbolViewModel? _movingSymbolVm;
 
-    private SymbolVm? _movingSymbolVm;
-    
     public MainWindowViewModel()
     {
         InitializeDefaultSymbols();
     }
-    
+
+    public ObservableCollection<BaseSymbolViewModel> SymbolsVm { get; } = [];
+
     private void InitializeDefaultSymbols()
     {
-        SymbolsVm.Add(new SymbolVm
+        SymbolsVm.Add(new ActionSymbolViewModel
         {
             X = 100,
             Y = 100,
             Height = 60,
             Width = 140
         });
-        
-        SymbolsVm.Add(new SymbolVm
+
+        SymbolsVm.Add(new ActionSymbolViewModel
         {
             X = 200,
             Y = 200,
@@ -32,32 +32,26 @@ public class MainWindowViewModel
         });
     }
 
-    public void SetMovingSymbol(SymbolVm symbolVm, double pointerX, double pointerY)
+    public void SetMovingSymbol(BaseSymbolViewModel symbolVm, double pointerX, double pointerY)
     {
         _movingSymbolVm = symbolVm;
-        
+
         _movingSymbolVm.OffsetX = pointerX - _movingSymbolVm.X;
         _movingSymbolVm.OffsetY = pointerY - _movingSymbolVm.Y;
     }
-    
+
     public void MovingSymbol(double x, double y)
     {
-        if (_movingSymbolVm == null)
-        {
-            return; 
-        }
-        
+        if (_movingSymbolVm == null) return;
+
         _movingSymbolVm.X = x - _movingSymbolVm.OffsetX;
         _movingSymbolVm.Y = y - _movingSymbolVm.OffsetY;
     }
 
-    public void UnsetMovingSymbol(SymbolVm symbolVm)
+    public void UnsetMovingSymbol(BaseSymbolViewModel symbolVm)
     {
-        if (_movingSymbolVm != symbolVm)
-        {
-            return;
-        }
-        
+        if (_movingSymbolVm != symbolVm) return;
+
         _movingSymbolVm = null;
     }
 }

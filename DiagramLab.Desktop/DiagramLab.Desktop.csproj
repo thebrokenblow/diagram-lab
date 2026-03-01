@@ -23,4 +23,9 @@
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SymbolsUi\SymbolsUi.csproj" />
+      <ProjectReference Include="..\SymbolsView\SymbolsView.csproj" />
+    </ItemGroup>
 </Project>

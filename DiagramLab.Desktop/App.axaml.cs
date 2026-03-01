@@ -5,6 +5,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using DiagramLab.Desktop.ViewModel;
 using DiagramLab.Desktop.Views;
+using SymbolsViewModel.Menus;
 
 namespace DiagramLab.Desktop;
 
@@ -20,10 +21,7 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainWindowViewModel(),
-            };
+            desktop.MainWindow = new MainWindow();
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -7,6 +7,7 @@ public class MainWindowViewModel
     public ObservableCollection<SymbolVm> SymbolsVm { get; } = [];
 
     private SymbolVm? _movingSymbolVm;
+    
     public MainWindowViewModel()
     {
         InitializeDefaultSymbols();
@@ -31,9 +32,12 @@ public class MainWindowViewModel
         });
     }
 
-    public void SetMovingSymbol(SymbolVm symbolVm)
+    public void SetMovingSymbol(SymbolVm symbolVm, double pointerX, double pointerY)
     {
         _movingSymbolVm = symbolVm;
+        
+        _movingSymbolVm.OffsetX = pointerX - _movingSymbolVm.X;
+        _movingSymbolVm.OffsetY = pointerY - _movingSymbolVm.Y;
     }
     
     public void MovingSymbol(double x, double y)
@@ -42,16 +46,18 @@ public class MainWindowViewModel
         {
             return; 
         }
-
-        _movingSymbolVm.X = x;
-        _movingSymbolVm.Y = y;
+        
+        _movingSymbolVm.X = x - _movingSymbolVm.OffsetX;
+        _movingSymbolVm.Y = y - _movingSymbolVm.OffsetY;
     }
 
     public void UnsetMovingSymbol(SymbolVm symbolVm)
     {
-        if (_movingSymbolVm == symbolVm)
+        if (_movingSymbolVm != symbolVm)
         {
-            _movingSymbolVm = null;
+            return;
         }
+        
+        _movingSymbolVm = null;
     }
 }

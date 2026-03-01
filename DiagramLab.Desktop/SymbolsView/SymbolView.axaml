@@ -3,16 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:DiagramLab.Desktop.ViewModel"
-             mc:Ignorable="d" 
-             d:DesignWidth="800" 
-             d:DesignHeight="450"
-             x:Class="DiagramLab.Desktop.SymbolsView.ActionSymbolView"
+             mc:Ignorable="d"
+             x:Class="DiagramLab.Desktop.SymbolsView.SymbolView"
              x:DataType="viewModel:SymbolVm">
-    <Canvas
-        HorizontalAlignment="Left"
-        VerticalAlignment="Center"
-        Width="{Binding Width}"
-        Height="{Binding Height}"
-        Background="#FF52C0AA">
-    </Canvas>
 </UserControl>

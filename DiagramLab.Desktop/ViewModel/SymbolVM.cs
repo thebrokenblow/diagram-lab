@@ -2,12 +2,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace DiagramLab.Desktop.ViewModel;
 
-public partial class SymbolVm : ObservableObject 
+public partial class SymbolVm : ObservableObject
 {
-    [ObservableProperty]
+    [ObservableProperty] 
     private double _x;
-    
-    [ObservableProperty]
+
+    [ObservableProperty] 
     private double _y;
 
     [ObservableProperty] 
@@ -15,4 +15,7 @@ public partial class SymbolVm : ObservableObject
 
     [ObservableProperty] 
     private double _height;
+
+    public double OffsetX { get; set; }
+    public double OffsetY { get; set; }
 }

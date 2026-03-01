@@ -23,7 +23,9 @@
             
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Name="DrawingCanvas" Background="White" PointerMoved="InputElement_OnPointerMoved" />
+                    <Canvas Background="White" 
+                            Loaded="DrawingCanvas_OnLoaded"
+                            PointerMoved="DrawingCanvas_OnPointerMoved" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             
@@ -36,7 +38,8 @@
             
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="viewModel:SymbolVm">
-                    <symbolsView:ActionSymbolView Loaded="Control_OnLoaded" />
+                    <symbolsView:ActionSymbolView PointerPressed="InputElement_OnPointerPressed"
+                                                  PointerReleased="InputElement_OnPointerReleased" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

@@ -24,9 +24,17 @@
             
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="White" 
-                            Loaded="DrawingCanvas_OnLoaded"
-                            PointerMoved="DrawingCanvas_OnPointerMoved" />
+                    <Canvas Loaded="DrawingCanvas_OnLoaded"
+                            PointerMoved="DrawingCanvas_OnPointerMoved">
+                        <Canvas.Background>
+                            <VisualBrush TileMode="Tile" 
+                                         DestinationRect="{Binding GridRect, Converter={StaticResource ArrayToRelativeRectConverter}}">
+                                <VisualBrush.Visual>
+                                    <Border BorderBrush="#CFCFCF" BorderThickness="1" Width="50" Height="50" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Canvas.Background>
+                    </Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             

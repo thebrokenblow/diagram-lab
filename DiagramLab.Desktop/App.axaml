@@ -1,7 +1,11 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:DiagramLab.Desktop.Converters"
              x:Class="DiagramLab.Desktop.App"
              RequestedThemeVariant="Light">
+    <Application.Resources>
+        <converters:ArrayToRelativeRectConverter x:Key="ArrayToRelativeRectConverter" />
+    </Application.Resources>
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>

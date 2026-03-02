@@ -3,9 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using DiagramLab.Desktop.ViewModel;
 using DiagramLab.Desktop.Views;
-using SymbolsViewModel.Menus;
 
 namespace DiagramLab.Desktop;
 

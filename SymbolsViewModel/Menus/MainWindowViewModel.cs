@@ -4,6 +4,10 @@ namespace SymbolsViewModel.Menus;
 
 public class MainWindowViewModel
 {
+    private const int GridCellSizeConst = 15;
+    private const int GridCellSize = 15;
+    public double[] GridRect => [0, 0, GridCellSize, GridCellSize];
+    
     private BaseSymbolViewModel? _movingSymbolVm;
 
     public MainWindowViewModel()
@@ -44,8 +48,8 @@ public class MainWindowViewModel
     {
         if (_movingSymbolVm == null) return;
 
-        _movingSymbolVm.X = x - _movingSymbolVm.OffsetX;
-        _movingSymbolVm.Y = y - _movingSymbolVm.OffsetY;
+        _movingSymbolVm.X = x - _movingSymbolVm.OffsetX - (x - _movingSymbolVm.OffsetX) % 15;
+        _movingSymbolVm.Y = y - _movingSymbolVm.OffsetY - (y - _movingSymbolVm.OffsetY) % 15;
     }
 
     public void UnsetMovingSymbol(BaseSymbolViewModel symbolVm)

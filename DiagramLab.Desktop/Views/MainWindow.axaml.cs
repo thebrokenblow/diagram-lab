@@ -3,6 +3,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using SymbolsView;
 using SymbolsViewModel;
+using SymbolsViewModel.Interfaces;
 using SymbolsViewModel.Menus;
 
 namespace DiagramLab.Desktop.Views;
@@ -30,32 +31,43 @@ public partial class MainWindow : Window
     {
         if (sender is not BaseSymbolView baseSymbolView)
         {
+            e.Handled = true;
             return;
         }
-        
-        if (baseSymbolView.DataContext is not BaseSymbolViewModel baseSymbolViewModel)
+
+        if (e.ClickCount == 2)
         {
-            return; 
+            if (baseSymbolView.DataContext is not IHasTextFieldViewModel iHasTextFieldViewModel)
+            {
+                e.Handled = true;
+                return;
+            }
+            
+            _mainWindowViewModel.SetEditableStatus(iHasTextFieldViewModel);
         }
-        
-        var pointerPosition = e.GetPosition(_drawingCanvas);
-        _mainWindowViewModel.SetMovingSymbol(baseSymbolViewModel, pointerPosition.X, pointerPosition.Y);
+        else
+        {
+            if (baseSymbolView.DataContext is not BaseSymbolViewModel baseSymbolViewModel)
+            {
+                e.Handled = true;
+                return;
+            }
+            
+            var pointerPosition = e.GetPosition(_drawingCanvas);
+            _mainWindowViewModel.SetMovingSymbol(baseSymbolViewModel, pointerPosition.X, pointerPosition.Y);
+        }
         
         e.Handled = true;
     }
 
     public void SymbolView_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        if (sender is not BaseSymbolView baseSymbolView)
+        if (sender is not BaseSymbolView { DataContext: BaseSymbolViewModel baseSymbolViewModel })
         {
+            e.Handled = true;
             return;
         }
-        
-        if (baseSymbolView.DataContext is not BaseSymbolViewModel baseSymbolViewModel)
-        {
-            return; 
-        }
-        
+
         _mainWindowViewModel.UnsetMovingSymbol(baseSymbolViewModel);
         
         e.Handled = true;
@@ -67,5 +79,10 @@ public partial class MainWindow : Window
         {
             _drawingCanvas = canvas;
         }
+    }
+
+    private void DrawingCanvas_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        _mainWindowViewModel.UnsetEditableStatus();
     }
 }

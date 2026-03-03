@@ -1,39 +1,46 @@
 using System.Collections.ObjectModel;
+using SymbolsViewModel.Interfaces;
 
 namespace SymbolsViewModel.Menus;
 
 public class MainWindowViewModel
 {
-    private const int GridCellSizeConst = 15;
-    private const int GridCellSize = 15;
-    public double[] GridRect => [0, 0, GridCellSize, GridCellSize];
-    
     private BaseSymbolViewModel? _movingSymbolVm;
-
+    private const int GridCellSize = 15;
+    
+    public static double[] GridRect => [0, 0, GridCellSize, GridCellSize];
+    public ObservableCollection<BaseSymbolViewModel> SymbolsVm { get; } = [];
+    private ObservableCollection<IHasTextFieldViewModel> SymbolsHasTextFieldVm { get; } = [];
+    
     public MainWindowViewModel()
     {
         InitializeDefaultSymbols();
     }
-
-    public ObservableCollection<BaseSymbolViewModel> SymbolsVm { get; } = [];
+    
 
     private void InitializeDefaultSymbols()
     {
-        SymbolsVm.Add(new ActionSymbolViewModel
+        var actionSymbolViewModel1 = new ActionSymbolViewModel
         {
             X = 100,
             Y = 100,
             Height = 60,
             Width = 140
-        });
+        };
 
-        SymbolsVm.Add(new ActionSymbolViewModel
+        var actionSymbolViewModel2 = new ActionSymbolViewModel
         {
             X = 200,
             Y = 200,
             Height = 60,
             Width = 140
-        });
+        };
+        
+        SymbolsVm.Add(actionSymbolViewModel1);
+        SymbolsVm.Add(actionSymbolViewModel2);
+        
+        SymbolsHasTextFieldVm.Add(actionSymbolViewModel1);
+        SymbolsHasTextFieldVm.Add(actionSymbolViewModel2);
     }
 
     public void SetMovingSymbol(BaseSymbolViewModel symbolVm, double pointerX, double pointerY)
@@ -48,8 +55,8 @@ public class MainWindowViewModel
     {
         if (_movingSymbolVm == null) return;
 
-        _movingSymbolVm.X = x - _movingSymbolVm.OffsetX - (x - _movingSymbolVm.OffsetX) % 15;
-        _movingSymbolVm.Y = y - _movingSymbolVm.OffsetY - (y - _movingSymbolVm.OffsetY) % 15;
+        _movingSymbolVm.X = x - _movingSymbolVm.OffsetX - (x - _movingSymbolVm.OffsetX) % GridCellSize;
+        _movingSymbolVm.Y = y - _movingSymbolVm.OffsetY - (y - _movingSymbolVm.OffsetY) % GridCellSize;
     }
 
     public void UnsetMovingSymbol(BaseSymbolViewModel symbolVm)
@@ -57,5 +64,18 @@ public class MainWindowViewModel
         if (_movingSymbolVm != symbolVm) return;
 
         _movingSymbolVm = null;
+    }
+
+    public void SetEditableStatus(IHasTextFieldViewModel iHasTextFieldViewModel)
+    {
+        iHasTextFieldViewModel.TextFieldViewModel.IsEnabled = true;
+    }
+    
+    public void UnsetEditableStatus()
+    {
+        foreach (var symbolHasTextFieldVm in SymbolsHasTextFieldVm)
+        {
+            symbolHasTextFieldVm.TextFieldViewModel.IsEnabled = false;
+        }
     }
 }

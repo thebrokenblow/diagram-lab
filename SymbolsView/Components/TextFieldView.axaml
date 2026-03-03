@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:SymbolsViewModel.Components;assembly=SymbolsViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SymbolsView.Components.TextFieldView">
+    
+    <Design.DataContext>
+        <components:TextFieldViewModel />
+    </Design.DataContext>
+    
+    <Canvas Height="{Binding Path=Height}" 
+            Width="{Binding Path=Width}">
+        
+        <TextBox Text="{Binding Path=Text}" 
+                 Width="{Binding Path=Width}"
+                 Height="{Binding Path=Height}"
+                 IsEnabled="{Binding Path=IsEnabled}"
+                 Canvas.Left="{Binding Path=OffsetX}"
+                 Canvas.Top="{Binding Path=OffsetY}"
+                 Foreground="White"
+                 TextWrapping="Wrap"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 AcceptsReturn="True"
+                 TextAlignment="Center">
+            
+            <TextBox.Styles>
+                <!-- Для отключенного состояния -->
+                <Style Selector="TextBox:disabled /template/ Border#PART_BorderElement">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                <Style Selector="TextBox:disabled /template/ Border">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                
+                <!-- Для состояния при наведении -->
+                <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                <Style Selector="TextBox:pointerover /template/ Border">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                
+                <!-- Для состояния фокуса (самое важное - когда редактируете) -->
+                <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                <Style Selector="TextBox:focus /template/ Border">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                
+                <!-- Для состояния фокуса внутри -->
+                <Style Selector="TextBox:focus-within /template/ Border#PART_BorderElement">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                <Style Selector="TextBox:focus-within /template/ Border">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                
+                <!-- Базовое состояние -->
+                <Style Selector="TextBox /template/ Border#PART_BorderElement">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                <Style Selector="TextBox /template/ Border">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </TextBox.Styles>
+        </TextBox>
+    </Canvas>
+</UserControl>

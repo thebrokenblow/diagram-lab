@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:symbolsViewModel="clr-namespace:SymbolsViewModel;assembly=SymbolsViewModel"
+             xmlns:componentsView="clr-namespace:SymbolsView.Components"
              mc:Ignorable="d" 
              d:DesignWidth="800" 
              d:DesignHeight="450"
@@ -13,11 +14,12 @@
         <symbolsViewModel:ActionSymbolViewModel />
     </Design.DataContext>
     
-    <Canvas
-        HorizontalAlignment="Left"
-        VerticalAlignment="Center"
-        Width="{Binding Width}"
-        Height="{Binding Height}"
-        Background="#FF52C0AA">
+    <Canvas HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Width="{Binding Path=Width}"
+            Height="{Binding Path= Height}"
+            Background="#FF52C0AA">
+        
+        <componentsView:TextFieldView DataContext="{Binding Path=TextFieldViewModel}" />
     </Canvas>
 </UserControl>

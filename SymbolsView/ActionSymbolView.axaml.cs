@@ -1,3 +1,5 @@
+using Avalonia.Input;
+
 namespace SymbolsView;
 
 public partial class ActionSymbolView : BaseSymbolView

@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace SymbolsView.Components;
+namespace DiagramLab.SymbolsView.Components;
 
 public partial class TextFieldView : UserControl
 {

@@ -1,6 +1,6 @@
-using SymbolsViewModel.Components;
+using DiagramLab.SymbolsViewModel.Components;
 
-namespace SymbolsViewModel.Interfaces;
+namespace DiagramLab.SymbolsViewModel.Interfaces;
 
 public interface IHasTextFieldViewModel
 {

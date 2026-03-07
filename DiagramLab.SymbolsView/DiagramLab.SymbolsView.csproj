@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SymbolsViewModel\SymbolsViewModel.csproj" />
+      <ProjectReference Include="..\DiagramLab.SymbolsViewModel\DiagramLab.SymbolsViewModel.csproj" />
     </ItemGroup>
 
 </Project>

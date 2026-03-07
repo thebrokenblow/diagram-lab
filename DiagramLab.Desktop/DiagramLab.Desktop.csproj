@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SymbolsUi\SymbolsUi.csproj" />
-      <ProjectReference Include="..\SymbolsView\SymbolsView.csproj" />
+      <ProjectReference Include="..\DiagramLab.SymbolsUi\DiagramLab.SymbolsUi.csproj" />
+      <ProjectReference Include="..\DiagramLab.SymbolsView\DiagramLab.SymbolsView.csproj" />
     </ItemGroup>
 </Project>

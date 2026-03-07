@@ -2,12 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:symbolsViewModel="clr-namespace:SymbolsViewModel;assembly=SymbolsViewModel"
-             xmlns:componentsView="clr-namespace:SymbolsView.Components"
+             xmlns:symbolsViewModel="clr-namespace:DiagramLab.SymbolsViewModel;assembly=DiagramLab.SymbolsViewModel"
+             xmlns:componentsView="clr-namespace:DiagramLab.SymbolsView.Components"
              mc:Ignorable="d" 
              d:DesignWidth="800" 
              d:DesignHeight="450"
-             x:Class="SymbolsView.ActionSymbolView"
+             x:Class="DiagramLab.SymbolsView.ActionSymbolView"
              x:DataType="symbolsViewModel:ActionSymbolViewModel">
     
     <Design.DataContext>

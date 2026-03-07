@@ -1,6 +1,6 @@
 using Avalonia.Input;
 
-namespace SymbolsView;
+namespace DiagramLab.SymbolsView;
 
 public partial class ActionSymbolView : BaseSymbolView
 {

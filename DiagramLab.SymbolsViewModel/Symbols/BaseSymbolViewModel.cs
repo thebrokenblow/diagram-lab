@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace SymbolsViewModel;
+namespace DiagramLab.SymbolsViewModel;
 
 public partial class BaseSymbolViewModel : ObservableObject
 {

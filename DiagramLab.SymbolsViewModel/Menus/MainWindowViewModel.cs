@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
-using SymbolsViewModel.Interfaces;
+using DiagramLab.SymbolsViewModel.Interfaces;
 
-namespace SymbolsViewModel.Menus;
+namespace DiagramLab.SymbolsViewModel.Menus;
 
 public class MainWindowViewModel
 {

@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace SymbolsView;
+namespace DiagramLab.SymbolsView;
 
 public partial class BaseSymbolView : UserControl
 {

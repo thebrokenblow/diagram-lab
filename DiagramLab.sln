@@ -2,11 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagramLab.Desktop", "DiagramLab.Desktop\DiagramLab.Desktop.csproj", "{9BDB1D2D-699B-4646-999F-F1C67C4881DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolsUi", "SymbolsUi\SymbolsUi.csproj", "{77712193-2D14-47EB-B791-B8033047D08D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagramLab.SymbolsUi", "DiagramLab.SymbolsUi\DiagramLab.SymbolsUi.csproj", "{77712193-2D14-47EB-B791-B8033047D08D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolsView", "SymbolsView\SymbolsView.csproj", "{04B72E03-CF63-4EDF-BD89-8956B3AE8ACE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagramLab.SymbolsView", "DiagramLab.SymbolsView\DiagramLab.SymbolsView.csproj", "{04B72E03-CF63-4EDF-BD89-8956B3AE8ACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolsViewModel", "SymbolsViewModel\SymbolsViewModel.csproj", "{1CD68821-7F5B-436A-B47D-B49E36467D29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagramLab.SymbolsViewModel", "DiagramLab.SymbolsViewModel\DiagramLab.SymbolsViewModel.csproj", "{1CD68821-7F5B-436A-B47D-B49E36467D29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
-using SymbolsViewModel.Components;
-using SymbolsViewModel.Interfaces;
+using DiagramLab.SymbolsViewModel.Components;
+using DiagramLab.SymbolsViewModel.Interfaces;
 
-namespace SymbolsViewModel;
+namespace DiagramLab.SymbolsViewModel;
 
 public class ActionSymbolViewModel : BaseSymbolViewModel, IHasTextFieldViewModel
 {

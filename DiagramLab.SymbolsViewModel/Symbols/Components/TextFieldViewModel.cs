@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace SymbolsViewModel.Components;
+namespace DiagramLab.SymbolsViewModel.Components;
  
 public partial class TextFieldViewModel : ObservableObject
 {

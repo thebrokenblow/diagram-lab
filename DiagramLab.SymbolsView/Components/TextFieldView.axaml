@@ -2,9 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:components="clr-namespace:SymbolsViewModel.Components;assembly=SymbolsViewModel"
+             xmlns:components="clr-namespace:DiagramLab.SymbolsViewModel.Components;assembly=DiagramLab.SymbolsViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SymbolsView.Components.TextFieldView">
+             x:Class="DiagramLab.SymbolsView.Components.TextFieldView">
     
     <Design.DataContext>
         <components:TextFieldViewModel />

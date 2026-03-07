@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace SymbolsUi;
+namespace DiagramLab.SymbolsUi;
 
 public partial class ActionSymbolUi : UserControl
 {

@@ -5,9 +5,9 @@
              mc:Ignorable="d" 
              d:DesignWidth="800" 
              d:DesignHeight="450"
-             xmlns:symbolsViewModel="clr-namespace:SymbolsViewModel;assembly=SymbolsViewModel"
+             xmlns:symbolsViewModel="clr-namespace:DiagramLab.SymbolsViewModel;assembly=DiagramLab.SymbolsViewModel"
              x:DataType="symbolsViewModel:BaseSymbolViewModel"
-             x:Class="SymbolsView.BaseSymbolView">
+             x:Class="DiagramLab.SymbolsView.BaseSymbolView">
     
     <Design.DataContext>
         <symbolsViewModel:BaseSymbolViewModel />

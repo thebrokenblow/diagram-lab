@@ -16,16 +16,13 @@
     </Design.DataContext>
     
     <Grid ColumnDefinitions="370,*">
-        <StackPanel Name="MenuSymbols" Grid.Column="0" Width="370" Background="#FFF5F5F5">
-            <symbolsUi:ActionSymbolUi Padding="5 10  5 5 "/>
-        </StackPanel>
         
-        <ItemsControl Grid.Column="1" ItemsSource="{Binding SymbolsVm}">
-            
+        <ItemsControl Margin="370 0 0 0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=SymbolsVm, Mode=TwoWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Loaded="DrawingCanvas_OnLoaded"
                             PointerPressed="DrawingCanvas_OnPointerPressed"
+                            PointerReleased="DrawingCanvas_OnPointerReleased"
                             PointerMoved="DrawingCanvas_OnPointerMoved">
                         <Canvas.Background>
                             <VisualBrush TileMode="Tile" 
@@ -53,5 +50,9 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        
+        <StackPanel Grid.Column="0" Name="MenuSymbols" Width="370" Background="#FFF5F5F5">
+            <symbolsUi:ActionSymbolUi PointerPressed="SymbolUi_OnPointerPressed" Padding="5 10  5 5 "/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -36,8 +36,17 @@ public class MainWindowViewModel
             Width = 140
         };
         
+        var actionSymbolViewModel3 = new ActionSymbolViewModel
+        {
+            X = 400,
+            Y = 400,
+            Height = 60,
+            Width = 140
+        };
+        
         SymbolsVm.Add(actionSymbolViewModel1);
         SymbolsVm.Add(actionSymbolViewModel2);
+        SymbolsVm.Add(actionSymbolViewModel3);
         
         SymbolsHasTextFieldVm.Add(actionSymbolViewModel1);
         SymbolsHasTextFieldVm.Add(actionSymbolViewModel2);
@@ -77,5 +86,30 @@ public class MainWindowViewModel
         {
             symbolHasTextFieldVm.TextFieldViewModel.IsEnabled = false;
         }
+    }
+
+    public void AddSymbol(BaseSymbolViewModel symbolViewModel)
+    {
+        symbolViewModel.X = -symbolViewModel.Width;
+        symbolViewModel.Y = -symbolViewModel.Height;
+        
+        _movingSymbolVm = symbolViewModel;
+        SymbolsVm.Add(symbolViewModel);
+    }
+
+    public void StopMovingSymbol()
+    {
+        if (_movingSymbolVm == null)
+        {
+            return;
+        }
+        
+        if ((int)_movingSymbolVm.X == (int)-_movingSymbolVm.Width && 
+            (int)_movingSymbolVm.Y == (int)-_movingSymbolVm.Height)
+        {
+            SymbolsVm.Add(_movingSymbolVm);
+        }
+        
+        _movingSymbolVm = null;
     }
 }

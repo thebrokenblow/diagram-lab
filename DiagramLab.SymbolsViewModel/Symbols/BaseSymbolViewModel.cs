@@ -16,6 +16,9 @@ public partial class BaseSymbolViewModel : ObservableObject
     [ObservableProperty] 
     private double _y;
 
+    [ObservableProperty] 
+    private string? _background;
+
     public double OffsetX { get; set; }
     public double OffsetY { get; set; }
 }

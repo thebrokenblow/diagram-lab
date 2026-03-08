@@ -17,8 +17,8 @@
     <Canvas HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Width="{Binding Path=Width}"
-            Height="{Binding Path= Height}"
-            Background="#FF52C0AA">
+            Height="{Binding Path=Height}"
+            Background="{Binding Path=Background}">
         
         <componentsView:TextFieldView DataContext="{Binding Path=TextFieldViewModel}" />
     </Canvas>

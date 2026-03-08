@@ -21,9 +21,9 @@
                  Canvas.Top="{Binding Path=OffsetY}"
                  Foreground="White"
                  TextWrapping="Wrap"
+                 AcceptsReturn="True"
                  Background="Transparent"
                  BorderThickness="0"
-                 AcceptsReturn="True"
                  TextAlignment="Center">
             
             <TextBox.Styles>

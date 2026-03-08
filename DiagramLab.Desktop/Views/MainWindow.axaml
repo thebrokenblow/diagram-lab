@@ -6,7 +6,9 @@
         xmlns:symbolsView="clr-namespace:DiagramLab.SymbolsView;assembly=DiagramLab.SymbolsView"
         xmlns:menusViewModel="clr-namespace:DiagramLab.SymbolsViewModel.Menus;assembly=DiagramLab.SymbolsViewModel"
         xmlns:symbolsViewModel="clr-namespace:DiagramLab.SymbolsViewModel;assembly=DiagramLab.SymbolsViewModel"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" 
+        d:DesignWidth="800" 
+        d:DesignHeight="450"
         x:Class="DiagramLab.Desktop.Views.MainWindow"
         x:DataType="menusViewModel:MainWindowViewModel"
         Title="DiagramLab">
@@ -16,19 +18,31 @@
     </Design.DataContext>
     
     <Grid ColumnDefinitions="370,*">
+        <StackPanel Name="MenuSymbols"
+                    Grid.Column="0" 
+                    Width="370" 
+                    Background="#FFF5F5F5">
+            <symbolsUi:ActionSymbolUi Padding="5 10  5 5" 
+                                      PointerPressed="SymbolUi_OnPointerPressed" />
+        </StackPanel>
         
-        <ItemsControl Margin="370 0 0 0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=SymbolsVm, Mode=TwoWay}">
+        <ItemsControl 
+            Grid.Column="1" 
+            ItemsSource="{Binding Path=SymbolsVm}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Loaded="DrawingCanvas_OnLoaded"
                             PointerPressed="DrawingCanvas_OnPointerPressed"
-                            PointerReleased="DrawingCanvas_OnPointerReleased"
-                            PointerMoved="DrawingCanvas_OnPointerMoved">
+                            PointerMoved="DrawingCanvas_OnPointerMoved"
+                            PointerReleased="DrawingCanvas_OnPointerReleased">
                         <Canvas.Background>
                             <VisualBrush TileMode="Tile" 
                                          DestinationRect="{Binding GridRect, Converter={StaticResource ArrayToRelativeRectConverter}}">
                                 <VisualBrush.Visual>
-                                    <Border BorderBrush="#CFCFCF" BorderThickness="1" Width="50" Height="50" />
+                                    <Border BorderBrush="#CFCFCF" 
+                                            BorderThickness="1" 
+                                            Width="50" 
+                                            Height="50" />
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Canvas.Background>
@@ -45,14 +59,10 @@
             
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="symbolsViewModel:ActionSymbolViewModel">
-                    <symbolsView:ActionSymbolView PointerPressed="SymbolView_OnPointerPressed"
-                                                  PointerReleased="SymbolView_OnPointerReleased" />
+                    <symbolsView:ActionSymbolView PointerPressed="SymbolView_OnPointerPressed" 
+                                                   />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
-        <StackPanel Grid.Column="0" Name="MenuSymbols" Width="370" Background="#FFF5F5F5">
-            <symbolsUi:ActionSymbolUi PointerPressed="SymbolUi_OnPointerPressed" Padding="5 10  5 5 "/>
-        </StackPanel>
     </Grid>
 </Window>

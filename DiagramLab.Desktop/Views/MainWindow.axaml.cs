@@ -5,13 +5,14 @@ using DiagramLab.Desktop.Core;
 using DiagramLab.SymbolsUi;
 using DiagramLab.SymbolsView;
 using DiagramLab.SymbolsViewModel;
-using DiagramLab.SymbolsViewModel.Interfaces;
 using DiagramLab.SymbolsViewModel.Menus;
 
 namespace DiagramLab.Desktop.Views;
 
 public partial class MainWindow : Window
 {
+    #region Fields and constants
+    
     /// <summary>
     /// Холст (Canvas), на котором отображаются символы.
     /// </summary>
@@ -36,7 +37,9 @@ public partial class MainWindow : Window
     /// Количество нажатий для перевода символ в режим редактирования текста.
     /// </summary>
     private const int DoubleClick = 2;
-
+    
+    #endregion
+    
     public MainWindow()
     {
         InitializeComponent();
@@ -46,7 +49,7 @@ public partial class MainWindow : Window
     #region SymbolUi Events
 
     /// <summary>
-    /// Обработчик нажатия на элемент символа в боковом меню (панели инструментов).
+    /// Обработчик нажатия на элемент символа в боковом меню символов.
     /// Создает новый экземпляр ViewModel для соответствующего типа символа.
     /// </summary>
     /// <param name="sender">Объект BaseSymbolUi, по которому было произведено нажатие</param>
@@ -66,6 +69,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region SymbolView Events
+    
     /// <summary>
     /// Обработчик нажатия на символ, уже размещенный на рабочем холсте.
     /// Реализует различное поведение в зависимости от количества нажатий:
@@ -76,44 +80,24 @@ public partial class MainWindow : Window
     /// <param name="e">Данные события PointerPressed, включающие количество нажатий и позицию курсора</param>
     public void SymbolView_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (sender is BaseSymbolView baseSymbolView)
+        if (sender is BaseSymbolView { DataContext: BaseSymbolViewModel baseSymbolViewModel })
         {
             switch (e.ClickCount)
             {
                 case SingleClick:
                 {
-                    if (baseSymbolView.DataContext is BaseSymbolViewModel baseSymbolViewModel)
-                    {
-                        var pointerPosition = e.GetPosition(_drawingCanvas);
-                        _mainWindowViewModel.SetMovingSymbol(baseSymbolViewModel, pointerPosition.X, pointerPosition.Y);
-                    }
+                    var pointerPosition = e.GetPosition(_drawingCanvas);
+                    _mainWindowViewModel.SetMovingSymbol(baseSymbolViewModel, pointerPosition.X, pointerPosition.Y);
+                    
                     break;
                 }
                 case DoubleClick:
                 {
-                    if (baseSymbolView.DataContext is IHasTextFieldViewModel iHasTextFieldViewModel)
-                    {
-                        _mainWindowViewModel.SetEditableStatus(iHasTextFieldViewModel);
-                    }
+                    _mainWindowViewModel.SetEditableStatus(baseSymbolViewModel);
+                    
                     break;
                 }
             }
-        }
-
-        e.Handled = true; //Прерывает всплытие события для родительского элемента
-    }
-
-    /// <summary>
-    /// Обработчик отпускания кнопки мыши над символом на холсте.
-    /// Завершает режим перемещения для конкретного символа.
-    /// </summary>
-    /// <param name="sender">Объект BaseSymbolView, с которым взаимодействовал пользователь</param>
-    /// <param name="e">Данные события PointerReleased</param>
-    public void SymbolView_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
-    {
-        if (sender is BaseSymbolView { DataContext: BaseSymbolViewModel baseSymbolViewModel })
-        {
-            _mainWindowViewModel.UnsetMovingSymbol(baseSymbolViewModel);
         }
 
         e.Handled = true; //Прерывает всплытие события для родительского элемента
@@ -141,7 +125,7 @@ public partial class MainWindow : Window
     
     /// <summary>
     /// Обработчик нажатия на свободное пространство холста (не на символ).
-    /// Снимает режим редактирования текста со всех символов, деактивируя текстовые поля.
+    /// Снимает режим редактирования текста со всех символов, деактивируя режим редактирования текстовых полей.
     /// </summary>
     /// <param name="sender">Объект Canvas, по которому было произведено нажатие</param>
     /// <param name="e">Данные события PointerPressed</param>
@@ -160,23 +144,37 @@ public partial class MainWindow : Window
     /// <param name="e">Данные события PointerEventArgs с информацией о текущей позиции курсора</param>
     public void DrawingCanvas_OnPointerMoved(object? sender, PointerEventArgs e)
     {
+        if (_drawingCanvas == null)
+        {
+            return;
+        }
+        
         var pointerPosition = e.GetPosition(_drawingCanvas);
-        _mainWindowViewModel.MovingSymbol(pointerPosition.X, pointerPosition.Y);
+        _mainWindowViewModel.UpdateMovingSymbolPosition(pointerPosition.X, pointerPosition.Y);
 
         e.Handled = true; //Прерывает всплытие события для родительского элемента
     }
     
     /// <summary>
-    /// Обработчик отпускания кнопки мыши над холстом, при первом перемещении символа.
-    /// Прекращение перемещения символа (при первом создании и перемещении).
+    /// Обработчик отпускания кнопки мыши над холстом, при перемещении символа.
+    /// Прекращение перемещения символа.
     /// </summary>
     /// <param name="sender">Объект Canvas, над которым была отпущена кнопка мыши</param>
     /// <param name="e">Данные события PointerReleasedEventArgs</param>
     private void DrawingCanvas_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        _mainWindowViewModel.StopMovingSymbol();
+        //Данная проверка нужна для предотвращения преждевременное завершение перемещения символа,
+        //когда курсор отпускается над меню символов.
+        var pointerPosition = e.GetPosition(_drawingCanvas);
+        if (pointerPosition.X < 0 || pointerPosition.Y < 0)
+        {
+            return;
+        }
+
+        _mainWindowViewModel.UnsetMovingSymbol();
         
         e.Handled = true; //Прерывает всплытие события для родительского элемента
+        e.Pointer.Capture(null); //Убираю фокус с холста
     }
     
     #endregion

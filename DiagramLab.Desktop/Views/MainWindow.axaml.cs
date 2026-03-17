@@ -56,6 +56,8 @@ public partial class MainWindow : Window
     /// <param name="e">Данные события PointerPressed, содержащие информацию о нажатии</param>
     private void SymbolUi_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        _mainWindowViewModel.DeselectAllAndDisableEditing();
+        
         if (sender is BaseSymbolUi baseSymbolUi)
         {
             var symbolViewModel = _factorySymbolViewModel.Create(baseSymbolUi.GetType());
@@ -131,7 +133,7 @@ public partial class MainWindow : Window
     /// <param name="e">Данные события PointerPressed</param>
     private void DrawingCanvas_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        _mainWindowViewModel.UnsetEditableStatus();
+        _mainWindowViewModel.DeselectAllAndDisableEditing();
         
         e.Handled = true; //Прерывает всплытие события для родительского элемента
     }
@@ -164,14 +166,14 @@ public partial class MainWindow : Window
     private void DrawingCanvas_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         //Данная проверка нужна для предотвращения преждевременное завершение перемещения символа,
-        //когда курсор отпускается над меню символов.
+        //когда курсор отпускается не над холстом.
         var pointerPosition = e.GetPosition(_drawingCanvas);
         if (pointerPosition.X < 0 || pointerPosition.Y < 0)
         {
             return;
         }
 
-        _mainWindowViewModel.UnsetMovingSymbol();
+        _mainWindowViewModel.StopMovingSymbol(pointerPosition.X, pointerPosition.Y);
         
         e.Handled = true; //Прерывает всплытие события для родительского элемента
         e.Pointer.Capture(null); //Убираю фокус с холста

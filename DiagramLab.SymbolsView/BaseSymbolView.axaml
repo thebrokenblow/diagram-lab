@@ -12,5 +12,4 @@
     <Design.DataContext>
         <symbolsViewModel:BaseSymbolViewModel />
     </Design.DataContext>
-    
 </UserControl>

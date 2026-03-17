@@ -17,7 +17,15 @@
         <menusViewModel:MainWindowViewModel />
     </Design.DataContext>
     
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Ctrl+X" Command="{Binding Path=RemoveSymbolsCommand}"/>
+        <KeyBinding Gesture="Delete" Command="{Binding Path=RemoveSymbolsCommand}"/>
+        <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=UndoSymbolsCommand}"/>
+        
+    </Window.KeyBindings>
+    
     <Grid ColumnDefinitions="370,*">
+        
         <StackPanel Name="MenuSymbols"
                     Grid.Column="0" 
                     Width="370" 
@@ -35,6 +43,7 @@
                             PointerPressed="DrawingCanvas_OnPointerPressed"
                             PointerMoved="DrawingCanvas_OnPointerMoved"
                             PointerReleased="DrawingCanvas_OnPointerReleased">
+                       
                         <Canvas.Background>
                             <VisualBrush TileMode="Tile" 
                                          DestinationRect="{Binding GridRect, Converter={StaticResource ArrayToRelativeRectConverter}}">

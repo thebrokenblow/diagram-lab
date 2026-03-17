@@ -14,12 +14,25 @@
         <symbolsViewModel:ActionSymbolViewModel />
     </Design.DataContext>
     
-    <Canvas HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Width="{Binding Path=Width}"
-            Height="{Binding Path=Height}"
-            Background="{Binding Path=Background}">
+    <Border 
+        Classes.select="{Binding Path=IsSelect}"
+        Classes.notSelect="{Binding Path=!IsSelect}">
+        <Border.Styles>
+            <Style Selector="Border.select">
+                <Setter Property="BorderBrush" Value="#0F52BA" />
+                <Setter Property="BorderThickness" Value="1.75" />
+            </Style>
+            <Style Selector="Border.notSelect">
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+        </Border.Styles>
         
-        <componentsView:TextFieldView DataContext="{Binding Path=TextFieldViewModel}" />
-    </Canvas>
+        <Canvas Width="{Binding Path=Width}"
+                Height="{Binding Path=Height}"
+                Background="{Binding Path=Background}">
+            
+            <componentsView:TextFieldView DataContext="{Binding Path=TextFieldViewModel}" />
+        </Canvas>
+    </Border>
 </UserControl>

@@ -19,6 +19,11 @@ public partial class BaseSymbolViewModel : ObservableObject
     [ObservableProperty] 
     private string? _background;
 
+    [ObservableProperty] 
+    private bool? _isSelect;
+    
     public double OffsetX { get; set; }
     public double OffsetY { get; set; }
+
+    public const double DefaultBorderThickness = 1.75;
 }

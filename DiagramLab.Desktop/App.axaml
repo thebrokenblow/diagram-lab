@@ -1,6 +1,7 @@
-<Application xmlns="https://github.com/avaloniaui"
+<avalonia:Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:DiagramLab.Desktop.Converters"
+             xmlns:avalonia="clr-namespace:Avalonia;assembly=Avalonia.Controls"
              x:Class="DiagramLab.Desktop.App"
              RequestedThemeVariant="Light">
     <Application.Resources>
@@ -9,4 +10,4 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
-</Application>
+</avalonia:Application>

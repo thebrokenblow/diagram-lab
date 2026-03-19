@@ -9,13 +9,35 @@ namespace DiagramLab.SymbolsViewModel.Menus;
 
 public class MainWindowViewModel
 {
+    #region Constants
+
+    /// <summary>
+    /// Размер ячейки сетки (в пикселях). Используется для привязки элементов к сетке.
+    /// </summary>
+    private const int GridCellSize = 15;
+    
+    #endregion
+
     #region Properties
 
     /// <summary>
     /// Возвращает массив параметров для отображения сетки на холсте.
-    /// Формат: [offsetX, offsetY, cellWidth, cellHeight]
     /// </summary>
     public static double[] GridRect => [0, 0, GridCellSize, GridCellSize]; 
+    
+    /// <summary>
+    /// Команда для удаления выделенных символов.
+    /// </summary>
+    public ICommand RemoveSymbolsCommand { get; }
+    
+    /// <summary>
+    /// Команда для отмены последнего действия.
+    /// </summary>
+    public ICommand UndoSymbolsCommand { get; }
+    
+    #endregion
+
+    #region Collections
 
     /// <summary>
     /// Коллекция всех символов, отображаемых на холсте.
@@ -23,57 +45,38 @@ public class MainWindowViewModel
     public ObservableCollection<BaseSymbolViewModel> SymbolsVm { get; } = [];
     
     /// <summary>
-    /// Команда для удаления выделенных символов
+    /// Коллекция выделенных символов на холсте.
     /// </summary>
-    public ICommand RemoveSymbolsCommand { get; }
-    
+    private ObservableCollection<BaseSymbolViewModel> SelectedSymbolsVm { get; } = [];
+
     /// <summary>
-    /// Команда для отмены операции
+    /// Коллекция символов, поддерживающих редактирование текстового поля.
     /// </summary>
-    public ICommand UndoSymbolsCommand { get; }
+    private ObservableCollection<IHasTextFieldViewModel> SymbolsHasTextFieldVm { get; } = [];
     
     #endregion
 
     #region Fields
-    
+
     /// <summary>
     /// Символ, который находится в режиме перемещения (перетаскивания).
     /// </summary>
     private BaseSymbolViewModel? _movingSymbolVm;
     
     /// <summary>
-    /// Коллекция всех выделенных символов, отображаемых на холсте.
-    /// </summary>
-    private ObservableCollection<BaseSymbolViewModel> SelectedSymbolsVm { get; } = [];
-
-    /// <summary>
-    /// Коллекция всех символов, у которых есть текстовое поле
-    /// </summary>
-    private ObservableCollection<IHasTextFieldViewModel> SymbolsHasTextFieldVm { get; } = [];
-    
-    /// <summary>
-    /// Стек команд, который пользователь может отменить
+    /// Стек команд для реализации функционала Undo/Redo.
     /// </summary>
     private readonly Stack<ISymbolCommand> _commandHistory = [];
 
     /// <summary>
-    /// Начальная (предыдущая) X координата перетаскиваемого символа 
+    /// Начальная X-координата перемещаемого символа (до начала перетаскивания).
     /// </summary>
     private double? _previousXCoordinateMovingSymbol;
     
     /// <summary>
-    /// Начальная (предыдущая) Y координата перетаскиваемого символа 
+    /// Начальная Y-координата перемещаемого символа (до начала перетаскивания).
     /// </summary>
     private double? _previousYCoordinateMovingSymbol;
-    
-    #endregion
-
-    #region Constants
-
-    /// <summary>
-    /// Размер ячейки сетки (в пикселях)
-    /// </summary>
-    private const int GridCellSize = 15;
     
     #endregion
     
@@ -85,6 +88,11 @@ public class MainWindowViewModel
         UndoSymbolsCommand = new RelayCommand(UndoSymbolsCommandAction);
     }
 
+    #region Initialization
+
+    /// <summary>
+    /// Инициализирует набор демонстрационных символов при запуске приложения.
+    /// </summary>
     private void InitializeDefaultSymbols()
     {
         var actionSymbolViewModel1 = new ActionSymbolViewModel
@@ -120,14 +128,19 @@ public class MainWindowViewModel
         SymbolsHasTextFieldVm.Add(actionSymbolViewModel3);
     }
     
-    
+    #endregion
+
+    #region Symbol Selection
+
     /// <summary>
     /// Активирует режим редактирования текста для указанного символа.
-    /// Если символ не поддерживает текстовое поле, метод ничего не делает.
-    /// Вызывается при двойном клике по символу на холсте
     /// </summary>
-    /// <param name="baseSymbolViewModel">Символ, для которого нужно включить редактирование текста</param>
-    public void SetEditableStatus(BaseSymbolViewModel baseSymbolViewModel)
+    /// <param name="baseSymbolViewModel">Символ, для которого нужно включить редактирование текста.</param>
+    /// <remarks>
+    /// Вызывается при двойном клике по символу на холсте.
+    /// Если символ не поддерживает текстовое поле, метод ничего не делает.
+    /// </remarks>
+    public static void SetEditableStatus(BaseSymbolViewModel baseSymbolViewModel)
     {
         if (baseSymbolViewModel is not IHasTextFieldViewModel iHasTextFieldViewModel)
         {
@@ -139,8 +152,10 @@ public class MainWindowViewModel
     
     /// <summary>
     /// Снимает выделение со всех символов и деактивирует режим редактирования текста.
-    /// Вызывается при клике на свободную область холста.
     /// </summary>
+    /// <remarks>
+    /// Вызывается при клике на свободную область холста.
+    /// </remarks>
     public void DeselectAllAndDisableEditing()
     {
         foreach (var symbolHasTextFieldVm in SymbolsHasTextFieldVm)
@@ -155,17 +170,21 @@ public class MainWindowViewModel
         
         SelectedSymbolsVm.Clear(); 
     }
+    
+    #endregion
 
-    #region Moving Symbol Events
+    #region Moving Symbol Events Handlers
     
     /// <summary>
     /// Устанавливает символ как перемещаемый и вычисляет смещение точки захвата.
-    /// Смещение необходимо для плавного перетаскивания без "скачков" символа
     /// </summary>
-    /// <param name="symbolVm">Символ, который будет перемещаться</param>
-    /// <param name="pointerX">X-координата курсора в момент захвата (относительно холста)</param>
-    /// <param name="pointerY">Y-координата курсора в момент захвата (относительно холста)</param>
-    public void SetMovingSymbol(BaseSymbolViewModel symbolVm, double pointerX, double pointerY)
+    /// <param name="symbolVm">Символ, который будет перемещаться.</param>
+    /// <param name="xCoordinate">X-координата курсора в момент захвата (относительно холста).</param>
+    /// <param name="yCoordinate">Y-координата курсора в момент захвата (относительно холста).</param>
+    /// <remarks>
+    /// Смещение (Offset) необходимо для плавного перетаскивания без "скачков" символа.
+    /// </remarks>
+    public void SetMovingSymbol(BaseSymbolViewModel symbolVm, double xCoordinate, double yCoordinate)
     {
         _movingSymbolVm = symbolVm;
         
@@ -177,17 +196,19 @@ public class MainWindowViewModel
         SelectedSymbolsVm.Add(symbolVm);
         
         // Вычисляем смещение от точки захвата до левого верхнего угла символа
-        _movingSymbolVm.OffsetX = pointerX - _movingSymbolVm.X;
-        _movingSymbolVm.OffsetY = pointerY - _movingSymbolVm.Y;
+        _movingSymbolVm.OffsetX = xCoordinate - _movingSymbolVm.X;
+        _movingSymbolVm.OffsetY = yCoordinate - _movingSymbolVm.Y;
     }
     
     /// <summary>
     /// Обновляет позицию перемещаемого символа в соответствии с движением курсора.
-    /// Координаты автоматически выравниваются по сетке (привязка к GridCellSize)
     /// </summary>
-    /// <param name="cursorX">Текущая X-координата курсора на холсте</param>
-    /// <param name="cursorY">Текущая Y-координата курсора на холсте</param>
-    public void UpdateMovingSymbolPosition(double cursorX, double cursorY)
+    /// <param name="xCoordinate">Текущая X-координата курсора на холсте.</param>
+    /// <param name="yCoordinate">Текущая Y-координата курсора на холсте.</param>
+    /// <remarks>
+    /// Координаты автоматически выравниваются по сетке (привязка к GridCellSize).
+    /// </remarks>
+    public void UpdateMovingSymbolPosition(double xCoordinate, double yCoordinate)
     {
         if (_movingSymbolVm == null)
         {
@@ -195,8 +216,8 @@ public class MainWindowViewModel
         }
         
         // Вычисляем желаемую позицию символа с учётом смещения от точки захвата
-        var desiredX = cursorX - _movingSymbolVm.OffsetX;
-        var desiredY = cursorY - _movingSymbolVm.OffsetY;
+        var desiredX = xCoordinate - _movingSymbolVm.OffsetX;
+        var desiredY = yCoordinate - _movingSymbolVm.OffsetY;
         
         // Применяем привязку к сетке для аккуратного выравнивания
         _movingSymbolVm.X = desiredX - desiredX % GridCellSize;
@@ -204,9 +225,11 @@ public class MainWindowViewModel
     }
     
     /// <summary>
-    /// Завершает режим перемещения символа.
+    /// Завершает режим перемещения символа и создаёт команду для истории изменений.
     /// </summary>
-    public void StopMovingSymbol(double cursorX, double cursorY)
+    /// <param name="xCoordinate">Финальная X-координата курсора на холсте.</param>
+    /// <param name="yCoordinate">Финальная Y-координата курсора на холсте.</param>
+    public void StopMovingSymbol(double xCoordinate, double yCoordinate)
     {
         if (_movingSymbolVm == null || 
             !_previousXCoordinateMovingSymbol.HasValue || 
@@ -215,19 +238,19 @@ public class MainWindowViewModel
             return;
         }
         
-        var desiredX = cursorX - _movingSymbolVm.OffsetX;
-        var desiredY = cursorY - _movingSymbolVm.OffsetY;
+        var desiredX = xCoordinate - _movingSymbolVm.OffsetX;
+        var desiredY = yCoordinate - _movingSymbolVm.OffsetY;
         
         // Применяем привязку к сетке для аккуратного выравнивания
-        var x = desiredX - desiredX % GridCellSize;
-        var y = desiredY - desiredY % GridCellSize;
+        var currentXCoordinateMovingSymbol = desiredX - desiredX % GridCellSize;
+        var currentYCoordinateMovingSymbol = desiredY - desiredY % GridCellSize;
         
         var changeCoordinateCommand = new ChangeCoordinateCommand(
             _movingSymbolVm, 
             _previousXCoordinateMovingSymbol.Value, 
             _previousYCoordinateMovingSymbol.Value, 
-            x, 
-            y);
+            currentXCoordinateMovingSymbol, 
+            currentYCoordinateMovingSymbol);
         
         changeCoordinateCommand.Execute();
         
@@ -240,42 +263,32 @@ public class MainWindowViewModel
 
     #endregion
 
-    #region Add Remove Events
-    
+    #region Add Remove Symbols Events Handlers
+
     /// <summary>
     /// Добавляет новый символ на холст и сразу активирует режим его перемещения.
     /// </summary>
-    /// <param name="symbolViewModel">Созданный символ для добавления на холст</param>
-    public void AddSymbol(BaseSymbolViewModel symbolViewModel)
+    /// <param name="symbolViewModel">Созданный символ для добавления на холст.</param>
+    /// <param name="xCoordinate">Текущая X-координата курсора на холсте.</param>
+    /// <param name="yCoordinate">Текущая Y-координата курсора на холсте.</param>
+    public void AddSymbol(BaseSymbolViewModel symbolViewModel, double xCoordinate, double yCoordinate)
     {
-        //Проверка нужна для блокировки создание нового символа,
-        //пока другой символ находится в процессе перемещения.
-        if (_movingSymbolVm != null)
-        {
-            return;
-        }
-        
         var addSymbolCommand = new AddSymbolCommand(symbolViewModel, SymbolsVm);
         addSymbolCommand.Execute();
         
         _commandHistory.Push(addSymbolCommand);
         
-        // Временное размещение за пределами видимой области,
-        // чтобы символ не "моргал" в углу перед первым перемещением
-        symbolViewModel.X = -symbolViewModel.Width - BaseSymbolViewModel.DefaultBorderThickness;
-        symbolViewModel.Y = -symbolViewModel.Height - BaseSymbolViewModel.DefaultBorderThickness;
+        symbolViewModel.X = xCoordinate - xCoordinate % GridCellSize;
+        symbolViewModel.Y = yCoordinate - yCoordinate % GridCellSize;
         
-        _previousXCoordinateMovingSymbol = symbolViewModel.X;
-        _previousYCoordinateMovingSymbol = symbolViewModel.Y;
-        
-        symbolViewModel.IsSelect = true;
-        _movingSymbolVm = symbolViewModel;
+        _previousXCoordinateMovingSymbol = xCoordinate;
+        _previousYCoordinateMovingSymbol = yCoordinate;
         
         SelectedSymbolsVm.Add(symbolViewModel);
     }
     
     /// <summary>
-    /// Удаление символа с холста
+    /// Удаляет выделенные символы с холста.
     /// </summary>
     private void RemoveSymbols()
     {
@@ -287,8 +300,10 @@ public class MainWindowViewModel
     
     #endregion
 
+    #region Undo Operations
+
     /// <summary>
-    /// Отмена последней команды
+    /// Отменяет последнее выполненное действие.
     /// </summary>
     private void UndoSymbolsCommandAction()
     {
@@ -302,4 +317,6 @@ public class MainWindowViewModel
         var command = _commandHistory.Pop();
         command.Undo();
     }
+    
+    #endregion
 }

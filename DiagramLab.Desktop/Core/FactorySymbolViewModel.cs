@@ -1,28 +1,27 @@
 using System;
 using System.Collections.Generic;
-using DiagramLab.SymbolsUi;
+using DiagramLab.SymbolsUi.ToolboxSymbols;
 using DiagramLab.SymbolsViewModel;
 
 namespace DiagramLab.Desktop.Core;
 
 public class FactorySymbolViewModel
 {
-    private readonly Dictionary<Type, Func<BaseSymbolViewModel>> _symbolViewModelByType = [];
+    private readonly Dictionary<string, Func<BaseSymbolViewModel>> _symbolViewModelByNameTypeToolboxSymbol = [];
     
     public FactorySymbolViewModel()
     {
         Configure();
     }
 
-    public BaseSymbolViewModel Create(Type symbolUiType)
+    public BaseSymbolViewModel Create(string nameTypeToolboxSymbol)
     {
-        ArgumentNullException.ThrowIfNull(symbolUiType);
+        ArgumentNullException.ThrowIfNull(nameTypeToolboxSymbol);
 
-        if (!_symbolViewModelByType.TryGetValue(symbolUiType, out var symbolViewModel))
+        if (!_symbolViewModelByNameTypeToolboxSymbol.TryGetValue(nameTypeToolboxSymbol, out var symbolViewModel))
         {
             throw new InvalidOperationException(
-                $"Ошибка настройки конфигурации: тип '{symbolUiType.Name}' отсутствует в словаре FactorySymbolViewModel. " +
-                $"Убедитесь, что для данного типа UI добавлена соответствующая фабричная функция в метод Configure().");
+                $"Тип символа '{nameTypeToolboxSymbol}' не зарегистрирован в FactorySymbolViewModel. Добавьте его в метод Configure()");
         }
 
         return symbolViewModel.Invoke();
@@ -30,6 +29,8 @@ public class FactorySymbolViewModel
 
     private void Configure()
     {
-        _symbolViewModelByType.Add(typeof(ActionSymbolUi), () =>  new ActionSymbolViewModel());
+        _symbolViewModelByNameTypeToolboxSymbol.Add(
+            typeof(ActionSymbolToolbox).ToString(), 
+            () => new ActionSymbolViewModel());
     }
 }

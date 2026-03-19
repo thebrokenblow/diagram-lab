@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DiagramLab.SymbolsUi.DragGhostSymbols.ActionSymbolGhost">
+    <Canvas
+        Width="140"
+        Height="60"
+        Background="#FF52C0AA"
+        Opacity="0.7">
+        <TextBlock
+            Width="140"
+            Height="60"
+            Foreground="White"
+            TextAlignment="Center"
+            Text="Действие" />
+    </Canvas>
+</UserControl>

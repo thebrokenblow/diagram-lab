@@ -2,15 +2,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:symbolsUi="clr-namespace:DiagramLab.SymbolsUi;assembly=DiagramLab.SymbolsUi"
         xmlns:symbolsView="clr-namespace:DiagramLab.SymbolsView;assembly=DiagramLab.SymbolsView"
         xmlns:menusViewModel="clr-namespace:DiagramLab.SymbolsViewModel.Menus;assembly=DiagramLab.SymbolsViewModel"
         xmlns:symbolsViewModel="clr-namespace:DiagramLab.SymbolsViewModel;assembly=DiagramLab.SymbolsViewModel"
+        xmlns:toolboxSymbols="clr-namespace:DiagramLab.SymbolsUi.ToolboxSymbols;assembly=DiagramLab.SymbolsUi"
+        xmlns:dragGhostSymbols="clr-namespace:DiagramLab.SymbolsUi.DragGhostSymbols;assembly=DiagramLab.SymbolsUi"
         mc:Ignorable="d" 
         d:DesignWidth="800" 
         d:DesignHeight="450"
         x:Class="DiagramLab.Desktop.Views.MainWindow"
         x:DataType="menusViewModel:MainWindowViewModel"
+        DragDrop.Drop="OnDrop"
+        DragDrop.DragOver="OnDragOver"
+        DragDrop.AllowDrop="True" 
         Title="DiagramLab">
 
     <Design.DataContext>
@@ -21,17 +25,18 @@
         <KeyBinding Gesture="Ctrl+X" Command="{Binding Path=RemoveSymbolsCommand}"/>
         <KeyBinding Gesture="Delete" Command="{Binding Path=RemoveSymbolsCommand}"/>
         <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=UndoSymbolsCommand}"/>
-        
     </Window.KeyBindings>
     
-    <Grid ColumnDefinitions="370,*">
+    <Grid Name="MainGrid" 
+          ColumnDefinitions="370,*">
         
-        <StackPanel Name="MenuSymbols"
+        <StackPanel Name="ToolboxSymbols"
                     Grid.Column="0" 
                     Width="370" 
                     Background="#FFF5F5F5">
-            <symbolsUi:ActionSymbolUi Padding="5 10  5 5" 
-                                      PointerPressed="SymbolUi_OnPointerPressed" />
+            <toolboxSymbols:ActionSymbolToolbox Name="ActionSymbolToolbox" 
+                                                Padding="5 10  5 5" 
+                                                PointerPressed="SymbolUi_OnPointerPressed" />
         </StackPanel>
         
         <ItemsControl 
@@ -68,10 +73,16 @@
             
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="symbolsViewModel:ActionSymbolViewModel">
-                    <symbolsView:ActionSymbolView PointerPressed="SymbolView_OnPointerPressed" 
-                                                   />
+                    <symbolsView:ActionSymbolView PointerPressed="SymbolView_OnPointerPressed" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        
+        <Canvas Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False">
+            <dragGhostSymbols:ActionSymbolGhost Name="ActionSymbolGhost" 
+                                                Width="140" 
+                                                Height="60" 
+                                                IsVisible="False" />
+        </Canvas>
     </Grid>
 </Window>

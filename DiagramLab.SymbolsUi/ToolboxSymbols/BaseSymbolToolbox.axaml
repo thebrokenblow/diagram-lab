@@ -5,5 +5,5 @@
              mc:Ignorable="d" 
              d:DesignWidth="800" 
              d:DesignHeight="450"
-             x:Class="DiagramLab.SymbolsUi.BaseSymbolUi">
+             x:Class="DiagramLab.SymbolsUi.ToolboxSymbols.BaseSymbolToolbox">
 </UserControl>

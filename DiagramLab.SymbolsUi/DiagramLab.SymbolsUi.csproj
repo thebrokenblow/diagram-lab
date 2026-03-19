@@ -10,4 +10,19 @@
       <PackageReference Include="Avalonia" Version="11.3.10" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="DragGhostSymbols\ActionSymbolGhost.axaml.cs">
+        <DependentUpon>ActionSymbolGhost.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="ToolboxSymbols\ActionSymbolToolbox.axaml.cs">
+        <DependentUpon>ActionSymbolToolbox.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="ToolboxSymbols\BaseSymbolToolbox.axaml.cs">
+        <DependentUpon>BaseSymbolToolbox.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>
